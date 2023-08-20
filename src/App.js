@@ -8,7 +8,7 @@ import setting_icon from './assets/setting_icon.png';
 import transaction_icon from './assets/transaction_icon.png';
 import user_icon from './assets/user_icon.png';
 import apple from './assets/apple 1.svg'
-//import tempdata from './Data.js';
+import tempdata from './Data.js';
 
 function App() {
   
@@ -16,10 +16,15 @@ function App() {
   const [tempUser, setTempUser]=useState({
     email:"",
     password:"",
-    picture:"https://cdn.vectorstock.com/i/1000x1000/57/22/human-avatar-man-isolated-icon-vector-11705722.webp",
+    picture:"https://www.pngmart.com/files/22/User-Avatar-Profile-Download-PNG-Isolated-Image.png",
   })
 
   const [graphData, setGraphData] = useState({});
+  const [weatherParam, setWeatherParam]=useState({
+    station: '10637',
+    start: '2020-01-01',
+    end: '2020-12-31'
+  });
   
   function handleSignIn(res){
     let usr=jwtDecode(res.credential);
@@ -42,7 +47,7 @@ function App() {
   useEffect(()=>{
     /* global google */
     google.accounts.id.initialize({
-      client_id: "741211887173-5aphffrmr04mgopbq82tiolo1lnnftb3.apps.googleusercontent.com",
+      client_id: `${process.env.REACT_APP_GOOGLE_CLIENT_ID}`,
       callback: handleSignIn
     });
 
@@ -57,29 +62,34 @@ function App() {
     const options = {
       method: 'GET',
       url: 'https://meteostat.p.rapidapi.com/stations/monthly',
-      params: {
-        station: '10637',
-        start: '2020-01-01',
-        end: '2020-12-31'
-      },
+      params: weatherParam,
       headers: {
-        'X-RapidAPI-Key': '6ec49f5af7mshc5795bb191305e2p18e434jsn3164929aefb0',
+        'X-RapidAPI-Key': `${process.env.REACT_APP_API_KEY1}`,
         'X-RapidAPI-Host': 'meteostat.p.rapidapi.com'
       }
     };
-
     async function fetchData(){
       try {
         const response = await axios.request(options);
-        console.log(response.data.data);
         setGraphData(
           {
             labels: ['Month 1','Month 2','Month 3','Month 4','Month 5','Month 6','Month 7','Month 8','Month 9','Month 10','Month 11','Month 12'],
             datasets: [
               {
-                label: "wind speed",
-                data: response.data.data.map((data) => data.wspd),
+                label: "tmax",
+                // data: tempdata.map((data) => data.tmax),
+                data: response.data.data.map((data) => data.tmax),
               },
+              // {
+              //   label: "tavg",
+              //   // data: tempdata.map((data) => data.avg),
+              //   data: response.data.data.map((data) => data.tavg),
+              // },
+              // {
+              //   label: "tmin",
+              //   // data: tempdata.map((data) => data.tmin),
+              //   data: response.data.data.map((data) => data.tmin),
+              // },
             ],
           })
       } catch (error) {
@@ -88,7 +98,7 @@ function App() {
     }
 
     fetchData();
-  },[])
+  },[weatherParam])
 
 
   return (
@@ -115,6 +125,7 @@ function App() {
               className="flex flex-col bg-white p-5 rounded-lg font-lato text-sm sm:text-base">
                 Email address
                 <input
+                  required
                   type="email"
                   pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;"
                   placeholder="Email address"
@@ -166,7 +177,7 @@ function App() {
             </div>
           </div>
           <div className="md:h-[100%] p-2 md:p-0 md:pt-5 md:w-[calc(95vw-min(250px,30%))] md:overflow-scroll">
-            <Dashboard userData={graphData} userPic={user.picture}></Dashboard>
+            <Dashboard userData={graphData} userPic={user.picture} updateParam={setWeatherParam}></Dashboard>
           </div>
         </div>
       }

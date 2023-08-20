@@ -17,3 +17,8 @@ body{
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+
+  
+#tinynavbar .arrow-down{
+    margin-bottom:2px !important;
+}

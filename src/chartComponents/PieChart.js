@@ -6,17 +6,17 @@ function PieChart({ chartData }) {
   return <Pie data={chartData} options={{
     maintainAspectRatio: false,
     plugins:{
-      layout:{
-        padding:10
-      },
       legend:{
         labels:{
           usePointStyle: true,
           boxHeight:6,
           boxWidth:6
         },
+        position:"right",
+        align:"start"
       },
     },
+    spacing:0
   }}/>;
 }
 

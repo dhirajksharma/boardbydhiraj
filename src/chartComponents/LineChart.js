@@ -4,13 +4,10 @@ import { Chart as ChartJS } from "chart.js/auto";
 
 function LineChart({ chartData }) {
   return <Line data={chartData} options={{
+    responsive:true,
     maintainAspectRatio: false,
     radius: 0,
     borderWidth:1,
-    borderJoinStyle:"bevel",
-    layout:{
-      padding:10
-    },
     plugins:{
 
       legend:{

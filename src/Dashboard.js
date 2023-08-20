@@ -6,8 +6,23 @@ import revenue from "./assets/revenue.svg";
 import transaction from "./assets/total_transaction.svg";
 import like from "./assets/like.svg";
 import user from "./assets/user.svg";
+import TinyDropdown from "./TinyDropdown";
+import { useState } from "react";
 
-function Dashboard({userData, userPic}){
+function Dashboard({userData, userPic, updateParam}){
+    
+    const options = [ '2020', '2021', '2022'];
+    const [navOption, setNavOption] = useState(0);
+
+    function navHandler(option,selectedIndex){
+        updateParam({
+            station: '10637',
+            start: `${option}-01-01`,
+            end: `${option}-12-31`
+        })
+        setNavOption(selectedIndex)
+    }
+    
     return(
         <div className="lg:ml-4">
             <div id="secondNav" className="flex items-center justify-between mb-4 mt-1">
@@ -50,14 +65,69 @@ function Dashboard({userData, userPic}){
                 </div>
             </div>
             
-            <div className="h-[300px] bg-white rounded-xl p-5 mb-6">
+            <div className="h-[350px] bg-white rounded-xl p-5 mb-6">
             <h1 className="font-montserrat font-bold md:text-lg">Activities</h1>
+            <TinyDropdown
+                    options={options}
+                    onSelect={(option, selectedIndex) => navHandler(option, selectedIndex)}
+                    placeHolder='2020'
+                    selectedIndex={navOption}
+                    cssOverrides={{
+                        dropdownButton: {
+                            fontSize:'14px'
+                        },
+                        dropdownPanel: {
+                            marginRight:"4px"
+                        },
+                        dropdownOption: {
+                            fontFamily: 'Montserrat',
+                            marginBottom:'2px',
+                            letterSpacing:'0.5px',
+                            fontSize:'14px',
+                        },
+                        dropdownOptionSelected: {
+                            fontFamily: 'Montserrat',
+                            marginBottom:'2px',
+                            letterSpacing:'0.5px',
+                            fontSize:'14px'
+                        }
+                      }}
+                />
+            <div className="h-[80%]">
             <LineChart chartData={userData} />
+            </div>
             </div>
 
             <div className="flex flex-wrap w-full justify-between">
                 <div className="h-[250px] w-full lg:w-[48%] bg-white rounded-xl mb-6 p-5 pb-7">
-                    <h1 className="font-montserrat font-bold md:text-lg">Top Products</h1>
+                    <h1 className="font-montserrat font-bold md:text-lg w-full flex justify-between items-center">Top Products
+                    <TinyDropdown
+                    options={options}
+                    onSelect={(option, selectedIndex) => navHandler(option, selectedIndex)}
+                    placeHolder='2020'
+                    selectedIndex={navOption}
+                    cssOverrides={{
+                        dropdownButton: {
+                            fontSize:'14px'
+                        },
+                        dropdownPanel: {
+                            marginRight:"4px"
+                        },
+                        dropdownOption: {
+                            fontFamily: 'Montserrat',
+                            marginBottom:'2px',
+                            letterSpacing:'0.5px',
+                            fontSize:'14px',
+                        },
+                        dropdownOptionSelected: {
+                            fontFamily: 'Montserrat',
+                            marginBottom:'2px',
+                            letterSpacing:'0.5px',
+                            fontSize:'14px'
+                        }
+                      }}
+                />
+                    </h1>
                     <PieChart chartData={userData} />
                 </div>
                 <div className="h-[250px] w-full lg:w-[48%] bg-white rounded-xl mb-6 p-5">
