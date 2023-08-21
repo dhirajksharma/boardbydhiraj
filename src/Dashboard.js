@@ -9,7 +9,7 @@ import user from "./assets/user.svg";
 import TinyDropdown from "./TinyDropdown";
 import { useState } from "react";
 
-function Dashboard({userData, userPic, updateParam}){
+function Dashboard({userPic, updateParam}){
     
     const options = [ '2020', '2021', '2022'];
     const [navOption, setNavOption] = useState(0);
@@ -94,7 +94,7 @@ function Dashboard({userData, userPic, updateParam}){
                       }}
                 />
             <div className="h-[80%]">
-            <LineChart chartData={userData} />
+            <LineChart chartData={JSON.parse(sessionStorage.getItem('graph1'))} />
             </div>
             </div>
 
@@ -128,7 +128,9 @@ function Dashboard({userData, userPic, updateParam}){
                       }}
                 />
                     </h1>
-                    <PieChart chartData={userData} />
+                    <div className="w-full h-[90%]">
+                    <PieChart chartData={JSON.parse(sessionStorage.getItem('graph2'))} />
+                    </div>
                 </div>
                 <div className="h-[250px] w-full lg:w-[48%] bg-white rounded-xl mb-6 p-5">
                     <h1 className="font-montserrat font-bold md:text-lg">Today's schedule</h1>

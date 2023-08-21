@@ -19,7 +19,6 @@ function App() {
     picture:"https://www.pngmart.com/files/22/User-Avatar-Profile-Download-PNG-Isolated-Image.png",
   })
 
-  const [graphData, setGraphData] = useState({});
   const [weatherParam, setWeatherParam]=useState({
     station: '10637',
     start: '2020-01-01',
@@ -29,11 +28,13 @@ function App() {
   function handleSignIn(res){
     let usr=jwtDecode(res.credential);
     setUser(usr);
+    sessionStorage.setItem('user',JSON.stringify(usr));
   }
   
   function handleManualSignIn(e){
     e.preventDefault();
     setUser(tempUser);
+    sessionStorage.setItem('user',JSON.stringify(tempUser));
   }
   
   const menu=useRef();
@@ -51,7 +52,11 @@ function App() {
       callback: handleSignIn
     });
 
-    google.accounts.id.renderButton(
+    if(sessionStorage.getItem('user')){
+      setUser(JSON.parse(sessionStorage.getItem('user')));}
+    
+    if(Object.keys(user).length===0)
+      google.accounts.id.renderButton(
       document.getElementById('signInGoogle'),
       {theme:"outline",size:"small"}
     );
@@ -71,27 +76,28 @@ function App() {
     async function fetchData(){
       try {
         const response = await axios.request(options);
-        setGraphData(
-          {
-            labels: ['Month 1','Month 2','Month 3','Month 4','Month 5','Month 6','Month 7','Month 8','Month 9','Month 10','Month 11','Month 12'],
-            datasets: [
-              {
-                label: "tmax",
-                // data: tempdata.map((data) => data.tmax),
-                data: response.data.data.map((data) => data.tmax),
-              },
-              // {
-              //   label: "tavg",
-              //   // data: tempdata.map((data) => data.avg),
-              //   data: response.data.data.map((data) => data.tavg),
-              // },
-              // {
-              //   label: "tmin",
-              //   // data: tempdata.map((data) => data.tmin),
-              //   data: response.data.data.map((data) => data.tmin),
-              // },
-            ],
-          })
+        sessionStorage.setItem('graph1',JSON.stringify({
+          labels: ['Month 1','Month 2','Month 3','Month 4','Month 5','Month 6','Month 7','Month 8','Month 9','Month 10','Month 11','Month 12'],
+          datasets: [
+            {
+              label: "tmax",
+              data: response.data.data.map((data) => data.tmax),
+            },
+            {
+              label: "tavg",
+              data: response.data.data.map((data) => data.tavg),
+            },
+          ],
+        }))
+        sessionStorage.setItem('graph2',JSON.stringify({
+          labels: ['Month 1','Month 2','Month 3','Month 4','Month 5','Month 6','Month 7','Month 8','Month 9','Month 10','Month 11','Month 12'],
+          datasets: [
+            {
+              label: "tmax",
+              data: response.data.data.map((data) => data.wspd),
+            },
+          ],
+        }))
       } catch (error) {
         console.error(error);
       }
@@ -99,7 +105,6 @@ function App() {
 
     fetchData();
   },[weatherParam])
-
 
   return (
     <div className="App">
@@ -177,7 +182,7 @@ function App() {
             </div>
           </div>
           <div className="md:h-[100%] p-2 md:p-0 md:pt-5 md:w-[calc(95vw-min(250px,30%))] md:overflow-scroll">
-            <Dashboard userData={graphData} userPic={user.picture} updateParam={setWeatherParam}></Dashboard>
+            <Dashboard userPic={user.picture} updateParam={setWeatherParam}></Dashboard>
           </div>
         </div>
       }
