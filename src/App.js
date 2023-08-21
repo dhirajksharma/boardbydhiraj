@@ -8,7 +8,6 @@ import setting_icon from './assets/setting_icon.png';
 import transaction_icon from './assets/transaction_icon.png';
 import user_icon from './assets/user_icon.png';
 import apple from './assets/apple 1.svg'
-import tempdata from './Data.js';
 
 function App() {
   
