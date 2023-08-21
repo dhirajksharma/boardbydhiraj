@@ -37,8 +37,8 @@ function Dashboard({userPic, updateParam}){
                         </input>
                         <img src={search} className="w-3"></img>
                     </div>
-                    <img src={bell} className="aspect-square w-4 rounded-full"/>
-                    <img src={userPic} className="aspect-square w-7 rounded-full"/>
+                    <img src={bell} className="cursor-pointer aspect-square w-4 rounded-full"/>
+                    <img src={userPic} className="cursor-pointer aspect-square w-7 rounded-full"/>
                 </div>
             </div>
 
@@ -99,7 +99,7 @@ function Dashboard({userPic, updateParam}){
             </div>
 
             <div className="flex flex-wrap w-full justify-between">
-                <div className="h-[250px] w-full lg:w-[48%] bg-white rounded-xl mb-6 p-5 pb-7">
+                <div id='graph2' className="h-[250px] w-full lg:w-[48%] bg-white rounded-xl mb-6 p-5 pb-7">
                     <h1 className="font-montserrat font-bold md:text-lg w-full flex justify-between items-center">Top Products
                     <TinyDropdown
                     options={options}

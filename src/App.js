@@ -167,11 +167,11 @@ function App() {
             
             <div id='menu' ref={menu} className="absolute md:relative hidden md:flex flex-col justify-between md:h-[90%] md:mt-6 bg-black w-full z-10">
               <div className="flex flex-col items-start px-3 md:px-0">
-                <button className="text-base md:text-lg flex items-center my-3 opacity-70 focus:opacity-100"><img src={dashboard_icon} className="w-4 mr-5"></img>Dashboard</button>
-                <button className="text-base md:text-lg flex items-center my-3 opacity-70 focus:opacity-100"><img src={transaction_icon} className="w-4 mr-5"></img>Transactions</button>
-                <button className="text-base md:text-lg flex items-center my-3 opacity-70 focus:opacity-100"><img src={schedule_icon} className="w-4 mr-5"></img>Schedules</button>
-                <button className="text-base md:text-lg flex items-center my-3 opacity-70 focus:opacity-100"><img src={user_icon} className="w-4 mr-5"></img>Users</button>
-                <button className="text-base md:text-lg flex items-center my-3 opacity-70 focus:opacity-100"><img src={setting_icon} className="w-4 mr-5"></img>Settings</button>
+                <button className="text-base md:text-lg flex items-center my-3 opacity-100"><img src={dashboard_icon} className="w-4 mr-5"></img>Dashboard</button>
+                <button className="text-base md:text-lg flex items-center my-3 opacity-70"><img src={transaction_icon} className="w-4 mr-5"></img>Transactions</button>
+                <button className="text-base md:text-lg flex items-center my-3 opacity-70"><img src={schedule_icon} className="w-4 mr-5"></img>Schedules</button>
+                <button className="text-base md:text-lg flex items-center my-3 opacity-70"><img src={user_icon} className="w-4 mr-5"></img>Users</button>
+                <button className="text-base md:text-lg flex items-center my-3 opacity-70"><img src={setting_icon} className="w-4 mr-5"></img>Settings</button>
               </div>
 
               <div className="mx-3 md:mx-0">  
