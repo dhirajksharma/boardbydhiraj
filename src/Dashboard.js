@@ -66,8 +66,8 @@ function Dashboard({userPic, updateParam}){
             </div>
             
             <div className="h-[350px] bg-white rounded-xl p-5 mb-6">
-            <h1 className="font-montserrat font-bold md:text-lg">Activities</h1>
-            <TinyDropdown
+                <h1 className="font-montserrat font-bold md:text-lg">Activities</h1>
+                <TinyDropdown
                     options={options}
                     onSelect={(option, selectedIndex) => navHandler(option, selectedIndex)}
                     placeHolder='2020'
@@ -93,16 +93,16 @@ function Dashboard({userPic, updateParam}){
                         }
                       }}
                 />
-            <div className="h-[80%]">
-            <LineChart chartData={JSON.parse(sessionStorage.getItem('graph1'))} />
-            </div>
+                <div className="h-[80%]">
+                    <LineChart chartData={JSON.parse(sessionStorage.getItem('graph1'))} />
+                </div>
             </div>
 
             <div className="flex flex-wrap w-full justify-between">
                 <div id='graph2' className="h-[250px] w-full lg:w-[48%] bg-white rounded-xl mb-6 p-5 pb-7">
                     <h1 className="font-montserrat font-bold md:text-lg w-full flex justify-between items-center">Top Products
-                    <TinyDropdown
-                    options={options}
+                        <TinyDropdown
+                            options={options}
                     onSelect={(option, selectedIndex) => navHandler(option, selectedIndex)}
                     placeHolder='2020'
                     selectedIndex={navOption}
@@ -125,13 +125,14 @@ function Dashboard({userPic, updateParam}){
                             letterSpacing:'0.5px',
                             fontSize:'14px'
                         }
-                      }}
-                />
+                            }}
+                        />
                     </h1>
                     <div className="w-full h-[90%]">
                     <PieChart chartData={JSON.parse(sessionStorage.getItem('graph2'))} />
                     </div>
                 </div>
+                
                 <div className="h-[250px] w-full lg:w-[48%] bg-white rounded-xl mb-6 p-5">
                     <h1 className="font-montserrat font-bold md:text-lg">Today's schedule</h1>
                     <div className="border-l-4 lg:border-l-6 my-3 pl-3 font-lato border-l-[#9bdd7c]">
